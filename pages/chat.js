@@ -6,7 +6,30 @@ export default function Chat() {
   ]);
   const [input, setInput] = useState('');
 
-  const handleSend = () => {
+  const handleSend = (const [stage, setStage] = useState(0);
+const [formData, setFormData] = useState({ from: '', to: '' });
+
+const handleSend = () => {
+  if (!input.trim()) return;
+
+  const newMessages = [...messages, { role: 'user', text: input }];
+  let botReply = '';
+
+  if (stage === 0) {
+    setFormData({ ...formData, from: input });
+    botReply = 'Thanks! What city are you moving to?';
+    setStage(1);
+  } else if (stage === 1) {
+    setFormData({ ...formData, to: input });
+    botReply = `Got it—${formData.from} to ${input}. Solid route. What kind of place are you moving out of?`;
+    setStage(2);
+  } else {
+    botReply = "Thanks! We'll keep building from here.";
+  }
+
+  setMessages([...newMessages, { role: 'bot', text: botReply }]);
+  setInput('');
+};) => {
     if (!input.trim()) return;
     setMessages([...messages, { role: 'user', text: input }, { role: 'bot', text: 'Thanks! What city are you moving to?' }]);
     setInput('');
